@@ -12,10 +12,6 @@ git checkout HEAD^
 cp -rf --parents target/linux package/kernel package/boot package/firmware/linux-firmware include/{kernel-*,netfilter.mk} ../
 cd -
 
-kernel_v="$(cat include/kernel-5.15 | grep LINUX_KERNEL_HASH-* | cut -f 2 -d - | cut -f 1 -d ' ')"
-echo "KERNEL=${kernel_v}" >> $GITHUB_ENV || true
-sed -i "s?targets/%S/.*'?targets/%S/$kernel_v'?" include/feeds.mk
-
 svn export --force https://github.com/openwrt/packages/trunk/kernel feeds/packages/kernel
 svn export --force  https://github.com/openwrt/packages/trunk/net/xtables-addons feeds/packages/net/xtables-addons
 
